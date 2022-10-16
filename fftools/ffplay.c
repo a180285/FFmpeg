@@ -60,6 +60,12 @@
 #include "cmdutils.h"
 
 #include <assert.h>
+/* connect rts library to rts plugin
+ */
+struct rts_glue_funcs;
+extern const struct rts_glue_funcs *get_rts_funcs(int version);
+extern void av_set_rts_demuxer_funcs(const struct rts_glue_funcs *funcs);
+
 
 const char program_name[] = "ffplay";
 const int program_birth_year = 2003;
@@ -2742,6 +2748,7 @@ static int is_realtime(AVFormatContext *s)
     if(   !strcmp(s->iformat->name, "rtp")
        || !strcmp(s->iformat->name, "rtsp")
        || !strcmp(s->iformat->name, "sdp")
+       || !strcmp(s->iformat->name, "artc")
     )
         return 1;
 
@@ -3698,6 +3705,9 @@ int main(int argc, char **argv)
 
     signal(SIGINT , sigterm_handler); /* Interrupt (ANSI).    */
     signal(SIGTERM, sigterm_handler); /* Termination (ANSI).  */
+
+    av_set_rts_demuxer_funcs(get_rts_funcs(2));
+
 
     show_banner(argc, argv, options);
 
