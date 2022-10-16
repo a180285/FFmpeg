@@ -101,7 +101,7 @@ COMPILE_LASX = $(call COMPILE,CC,LASXFLAGS)
 	-$(if $(ASMSTRIPFLAGS), $(STRIP) $(ASMSTRIPFLAGS) $@)
 
 %.o: %.rc
-	$(WINDRES) $(IFLAGS) $(foreach ARG,$(CC_DEPFLAGS),--preprocessor-arg "$(ARG)") -o $@ $<
+	$(WINDRES) $(IFLAGS) -o $@ $<
 
 %.i: %.c
 	$(CC) $(CCFLAGS) $(CC_E) $<

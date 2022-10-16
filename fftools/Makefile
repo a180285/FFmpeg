@@ -18,10 +18,14 @@ $$(OBJS-$(1)): | fftools
 $$(OBJS-$(1)): CFLAGS  += $(CFLAGS-$(1))
 $(1)$(PROGSSUF)_g$(EXESUF): LDFLAGS += $(LDFLAGS-$(1))
 $(1)$(PROGSSUF)_g$(EXESUF): FF_EXTRALIBS += $(EXTRALIBS-$(1))
+$(1)$(PROGSSUF)_g$(EXESUF): FF_EXTRALIBS += $(EXTRALIBS-$(1)) -lRtsSDK --verbose
 -include $$(OBJS-$(1):.o=.d)
 endef
 
 $(foreach P,$(AVPROGS-yes),$(eval $(call DOFFTOOL,$(P))))
+
+LDFLAGS += -L./Windows/lib/x86_64 -lRtsSDK
+# LDFLAGS += -L./Mac/lib -lRtsSDK
 
 all: $(AVPROGS)
 

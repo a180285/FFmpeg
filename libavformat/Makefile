@@ -3,7 +3,7 @@ DESC = FFmpeg container format library
 
 HEADERS = avformat.h                                                    \
           avio.h                                                        \
-          version.h                                                     \
+          version.h unitybuf.h                                                     \
 
 OBJS = allformats.o         \
        avio.o               \
@@ -23,6 +23,8 @@ OBJS = allformats.o         \
        seek.o               \
        url.o                \
        utils.o              \
+       rtsdec.o             \
+       rtsenc.o             \
 
 OBJS-$(HAVE_LIBC_MSVCRT)                 += file_open.o
 
@@ -666,6 +668,7 @@ OBJS-$(CONFIG_TLS_PROTOCOL)              += tls.o $(TLS-OBJS-yes)
 OBJS-$(CONFIG_UDP_PROTOCOL)              += udp.o ip.o
 OBJS-$(CONFIG_UDPLITE_PROTOCOL)          += udp.o ip.o
 OBJS-$(CONFIG_UNIX_PROTOCOL)             += unix.o
+OBJS-$(CONFIG_UNITYBUF_PROTOCOL)         += unitybuf.o unitybuf_protocol.o
 
 # external library protocols
 OBJS-$(CONFIG_LIBAMQP_PROTOCOL)          += libamqp.o urldecode.o
