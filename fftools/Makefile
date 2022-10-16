@@ -29,8 +29,8 @@ endef
 
 $(foreach P,$(AVPROGS-yes),$(eval $(call DOFFTOOL,$(P))))
 
-LDFLAGS += -L./Mac/lib -lRtsSDK
-
+LDFLAGS += -L./Windows/lib/x86_64 -lRtsSDK
+# LDFLAGS += -L./Mac/lib -lRtsSDK
 
 all: $(AVPROGS)
 
